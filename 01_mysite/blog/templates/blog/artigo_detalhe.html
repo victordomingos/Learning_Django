@@ -1,13 +1,15 @@
 {% extends 'blog/base.html' %}
 
 {% block content %}
-    {% for artigo in artigos %}
-        <div class="artigo">
+    <div class="artigo">
+        {% if artigo.data_publicacao %}
             <div class="data">
                 <p>Publicado por {{ artigo.autor }} em {{ artigo.data_publicacao }}</p>
             </div>
+        {% endif %}
+
             <h2><a href="{% url 'artigo_detalhe' pk=artigo.pk %}">{{ artigo.titulo }}</a></h2>
             <p>{{ artigo.texto|linebreaksbr }}</p>
-        </div>
-    {% endfor %}
+
+    </div>
 {% endblock %}
