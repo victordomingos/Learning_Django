@@ -1,0 +1,30 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Blog no Django</title>
+
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+          crossorigin="anonymous">
+
+    <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+
+</head>
+<body>
+
+<div>
+    <h1><a href="/">Blog no Django</a></h1>
+</div>
+
+{% for artigo in artigos %}
+    <div>
+        <h2>{{ artigo.titulo }}</h2>
+        <p><em>Publicado por {{ artigo.autor }} em {{ artigo.data_publicacao }}</em></p>
+        <p>{{ artigo.texto|linebreaksbr }}</p>
+    </div>
+{% endfor %}
+
+</body>
+</html>
