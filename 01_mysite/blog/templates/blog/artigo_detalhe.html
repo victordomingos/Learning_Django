@@ -8,8 +8,12 @@
             </div>
         {% endif %}
 
-            <h2><a href="{% url 'artigo_detalhe' pk=artigo.pk %}">{{ artigo.titulo }}</a></h2>
-            <p>{{ artigo.texto|linebreaksbr }}</p>
-
+        <h2><a href="{% url 'artigo_detalhe' pk=artigo.pk %}">{{ artigo.titulo }}</a></h2>
+        <p>{{ artigo.texto|linebreaksbr }}</p>
+        {% if user.is_authenticated %}
+            <a class="btn btn-default" href="{% url 'artigo_edit' pk=artigo.pk %}">
+                Editar
+            </a>
+        {% endif %}
     </div>
 {% endblock %}

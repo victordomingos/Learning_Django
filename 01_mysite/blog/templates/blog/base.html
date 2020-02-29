@@ -18,7 +18,12 @@
 <body>
 
 <div class="page-header">
+    {% if user.is_authenticated %}
+        <a href="{% url 'artigo_novo' %}" class="top-menu">+</a>
+    {% endif %}
+
     <h1><a href="/">Blog no Django</a></h1>
+
 </div>
 
 <div class="content container">
