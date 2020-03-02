@@ -11,7 +11,7 @@ class Artigo(models.Model):
     data_publicacao = models.DateTimeField(blank=True, null=True)
 
     def publicar(self):
-        self.published_date = timezone.now()
+        self.data_publicacao = timezone.now()
         self.save()
 
     def __str__(self):

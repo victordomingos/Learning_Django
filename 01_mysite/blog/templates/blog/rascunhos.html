@@ -1,0 +1,13 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    {% for artigo in artigos %}
+        <div class="artigo">
+            <div class="data">
+                <p>Criado por {{ artigo.autor }} em {{ artigo.data_criacao|date:'Y-m-d' }}</p>
+            </div>
+            <h2><a href="{% url 'artigo_detalhe' pk=artigo.pk %}">{{ artigo.titulo }}</a></h2>
+            <p>{{ artigo.texto|truncatechars:200 }}</p>
+        </div>
+    {% endfor %}
+{% endblock %}

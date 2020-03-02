@@ -19,6 +19,7 @@
 
 <div class="page-header">
     {% if user.is_authenticated %}
+        <a href="{% url 'rascunhos' %}" class="top-menu">Rascunhos</a>
         <a href="{% url 'artigo_novo' %}" class="top-menu">+</a>
     {% endif %}
 
