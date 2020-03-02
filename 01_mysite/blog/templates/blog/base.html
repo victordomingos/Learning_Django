@@ -21,6 +21,10 @@
     {% if user.is_authenticated %}
         <a href="{% url 'rascunhos' %}" class="top-menu">Rascunhos</a>
         <a href="{% url 'artigo_novo' %}" class="top-menu">+</a>
+
+    <p class="top-menu"><small>Olá, {{ user.username }}. <a href="{% url 'logout' %}">Sair</a> </small></p>
+    {% else %}
+        <a href="{% url 'login' %}" class="top-menu">Entrar</a>
     {% endif %}
 
     <h1><a href="/">Blog no Django</a></h1>
