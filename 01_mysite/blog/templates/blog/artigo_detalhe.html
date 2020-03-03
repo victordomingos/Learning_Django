@@ -2,13 +2,12 @@
 
 {% block content %}
     <div class="artigo">
+        <h2><a href="{% url 'artigo_detalhe' pk=artigo.pk %}">{{ artigo.titulo }}</a></h2>
         {% if artigo.data_publicacao %}
             <div class="data">
                 <p>Publicado por {{ artigo.autor }} em {{ artigo.data_publicacao }}</p>
             </div>
         {% endif %}
-
-        <h2><a href="{% url 'artigo_detalhe' pk=artigo.pk %}">{{ artigo.titulo }}</a></h2>
         <p>{{ artigo.texto|linebreaksbr }}</p>
         {% if user.is_authenticated %}
             <a class="btn btn-default" href="{% url 'artigo_eliminar' pk=artigo.pk %}">
@@ -27,4 +26,26 @@
 
         {% endif %}
     </div>
+
+    <hr>
+    <a class="btn btn-default" href="{% url 'adicionar_comentario' pk=artigo.pk %}">Escrever um comentário</a>
+    {% for comentario in artigo.comentarios.all %}
+        {% if user.is_authenticated or comentario.is_approved %}
+            <div class="comentario">
+                <div class="data">
+                    {{ comentario.data_criacao }}
+                    {% if not comentario.is_approved %}
+                        <a class="btn btn-default" href="{% url 'eliminar_comentario' pk=comentario.pk %}">Eliminar</a>
+                        <a class="btn btn-default" href="{% url 'aprovar_comentario'  pk=comentario.pk %}">Aprovar</a>
+                    {% endif %}
+                </div>
+                <strong>{{ comentario.autor }}</strong>
+                <p>{{ comentario.texto|linebreaks }}</p>
+            </div>
+        {% endif %}
+    {% empty %}
+        <p>Ainda não há comentários para mostrar aqui…</p>
+    {% endfor %}
+
+
 {% endblock %}

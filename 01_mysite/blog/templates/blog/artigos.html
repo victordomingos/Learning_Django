@@ -3,10 +3,10 @@
 {% block content %}
     {% for artigo in artigos %}
         <div class="artigo">
-            <div class="data">
-                <p>Publicado por {{ artigo.autor }} em {{ artigo.data_publicacao }}</p>
-            </div>
             <h2><a href="{% url 'artigo_detalhe' pk=artigo.pk %}">{{ artigo.titulo }}</a></h2>
+            <div class="data">
+                <p>Publicado por {{ artigo.autor }} em {{ artigo.data_publicacao }} | Comentários: {{ artigo.comentarios_aprovados.count }}</p>
+            </div>
             <p>{{ artigo.texto|linebreaksbr }}</p>
         </div>
     {% endfor %}

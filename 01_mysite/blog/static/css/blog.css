@@ -30,6 +30,7 @@ h1, h2, h3, h4 {
 
 .data {
     color: brown;
+    font-size: 9pt;
 }
 
 .save {
@@ -49,10 +50,15 @@ h1, h2, h3, h4 {
 }
 
 .artigo {
-    margin-botom: 70px;
+    margin-botom: 90px;
+    margin-top: 25px;
 }
 
 .artigo h2 a, .artigo h2 a:visited {
     color: #000;
 }
 
+.comentario {
+    margin: 20px 0 20px 20px;
+    font-size: 9pt;
+}
