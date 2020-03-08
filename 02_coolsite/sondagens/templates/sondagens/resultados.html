@@ -1,0 +1,9 @@
+<h1>{{ questao.texto }}</h1>
+
+<ul>
+{% for escolha in questao.escolha_set.all %}
+    <li>{{ escolha.texto }} -- {{ escolha.votos }} voto{{ escolha.votos|pluralize }}</li>
+{% endfor %}
+</ul>
+
+<a href="{% url 'sondagens:detalhe' questao.id %}">Votar novamente?</a>

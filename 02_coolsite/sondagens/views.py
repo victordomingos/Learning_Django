@@ -1,4 +1,5 @@
-from django.http import HttpResponse, Http404, HttpResponseRedirect
+from django.db.models import F
+from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 
@@ -20,7 +21,8 @@ def detalhe(request, question_id):
 
 def resultados(request, question_id):
     """ Resultados da votacao numa dada sondagem """
-    return HttpResponse(f"Está a visualizar os resultados da questão {question_id}.")
+    questao = get_object_or_404(Questao, pk=question_id)
+    return render(request, 'sondagens/resultados.html', {'questao': questao})
 
 
 def votar(request, question_id):
@@ -31,9 +33,10 @@ def votar(request, question_id):
     except (KeyError, Escolha.DoesNotExist):
         context = {'questao': questao,
                    'mensagem_de_erro': 'Não selecionou uma questão.'
-                  }
+                   }
         return render(request, 'sondagens/detalhe.html', context)
     else:
-        escolha_selecionada.votos += 1
+        escolha_selecionada.votos = F('votos') + 1
         escolha_selecionada.save()
-        return HttpResponseRedirect(reverse('sondagens:resultados', args=(questao.id,)))
+        return HttpResponseRedirect(reverse('sondagens:resultados',
+                                            args=(questao.id,)))
