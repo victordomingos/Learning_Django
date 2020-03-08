@@ -1,0 +1,9 @@
+{% if ultimas_questoes %}
+    <ul>
+    {% for questao in ultimas_questoes %}
+            <li><a href="{% url 'sondagens:detalhe' questao.id %}">{{ questao.texto }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>Não há sondagens para mostrar.</p>
+{% endif %}
