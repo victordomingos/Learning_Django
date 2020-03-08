@@ -1,6 +1,15 @@
 <h1>{{ questao.texto }}</h1>
-<ul>
-{% for escolha in questao.escolha_set.all %}
-    <li>{{ escolha.texto }}</li>
-{% endfor %}
-</ul>
+
+{% if mensagem_de_erro %}
+    <p><strong>{{ mensagem_de_erro }}</strong></p>
+{% endif %}
+
+<form action="{% url 'sondagens:votar' questao.id %}" method="post">
+    {% csrf_token %}
+    {% for escolha in questao.escolha_set.all %}
+        <input type="radio" name="escolha" id="escolha{{ forloop.counter }}" value="{{ escolha.id }}">
+        <label for="escolha{{ forloop.counter }}">{{ escolha.texto }}</label>
+        <br>
+    {% endfor %}
+    <input type="submit" value="Votar">
+</form>
