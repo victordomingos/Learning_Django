@@ -12,7 +12,8 @@ class Questao(models.Model):
         return self.texto
 
     def foi_publicada_recentemente(self):
-        return self.data_publicacao >= timezone.now() - datetime.timedelta(days=1)
+        agora = timezone.now()
+        return agora - datetime.timedelta(days=1) <= self.data_publicacao <= agora
 
 
 class Escolha(models.Model):
