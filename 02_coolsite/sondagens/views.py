@@ -2,27 +2,28 @@ from django.db.models import F
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
+from django.views import generic
 
 from .models import Questao, Escolha
 
 
-def index(request):
-    """ Lista ou índice de questões """
-    ultimas_questoes = Questao.objects.order_by('data_publicacao')[:5]
-    context = {'ultimas_questoes': ultimas_questoes}
-    return render(request, 'sondagens/index.html', context)
+class IndexView(generic.ListView):
+    template_name = 'sondagens/index.html'
+    context_object_name = 'ultimas_questoes'
+
+    def get_queryset(self):
+        """ Devolve as últimas 5 questões publicadas"""
+        return Questao.objects.order_by('-data_publicacao')[:5]
 
 
-def detalhe(request, question_id):
-    """ Página que será mostrada ao abrir uma questão da lista """
-    questao = get_object_or_404(Questao, pk=question_id)
-    return render(request, 'sondagens/detalhe.html', {'questao': questao})
+class DetailView(generic.DetailView):
+    model = Questao
+    template_name = 'sondagens/detalhe.html'
 
 
-def resultados(request, question_id):
-    """ Resultados da votacao numa dada sondagem """
-    questao = get_object_or_404(Questao, pk=question_id)
-    return render(request, 'sondagens/resultados.html', {'questao': questao})
+class ResultsView(generic.DetailView):
+    model = Questao
+    template_name = 'sondagens/resultados.html'
 
 
 def votar(request, question_id):
